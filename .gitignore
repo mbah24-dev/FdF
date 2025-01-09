@@ -1,0 +1,10 @@
+updateMakefile 
+
+exec 
+
+*.o 
+
+*.out 
+
+test/ 
+
