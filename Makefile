@@ -6,7 +6,7 @@
 #    By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 19:11:38 by mbah              #+#    #+#              #
-#    Updated: 2025/01/09 22:15:33 by mbah             ###   ########.fr        #
+#    Updated: 2025/01/16 17:43:16 by mbah             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,10 @@ LIBFT      = ./lib/ft_printf/libft/libft.a
 INC        = inc
 CFLAGS     = -Wall -Werror -Wextra -I $(INC)
 LDFLAGS    = -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit -L./lib/ft_printf -lftprintf -lm  # Added -lm for math library
-HEADER     = $(INC)/get_next_line.h $(INC)/FdF.h 
+HEADER     = $(INC)/get_next_line.h $(INC)/FdF.h $(INC)/FdF_utils.h
 SRC        = $(DIR)/app/utility/gnl/get_next_line_utils.c $(DIR)/app/utility/gnl/get_next_line.c $(DIR)/main.c \
+			 $(DIR)/app/utility/app.draw_line.c $(DIR)/app/utility/app.draw_pixel.c $(DIR)/app/utility/app.make_colors.c 
+			  
 
 OBJS       = $(SRC:.c=.o)
 
