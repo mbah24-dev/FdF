@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:24:13 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/16 17:51:30 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/17 17:18:04 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ typedef struct s_point
 	int	y;
 }		t_point;
 
+typedef struct s_sprite
+{
+	void	*img;
+	int		width;
+	int		height;
+	char	*path;
+}			t_sprite;
+
 void	my_mlx_draw_line(t_data *img, t_point A, t_point B, int color);
 int		my_mlx_create_trgb(int t, int r, int g, int b);
 int		my_mlx_get_r(int trgb);
@@ -37,7 +45,5 @@ int		my_mlx_add_shade(double distance, int color);
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	my_mlx_draw_square(t_data *img, t_point O, int size, int color);
 void	my_mlx_draw_circle(t_data *img, t_point centre, int r, int color);
-
-
 
 #endif
