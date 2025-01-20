@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:24:13 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/18 00:41:11 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/20 20:40:05 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ typedef struct s_data
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	*z_and_color;
 }		t_point;
 
 typedef struct s_bresenham
