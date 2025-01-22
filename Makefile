@@ -6,7 +6,7 @@
 #    By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 19:11:38 by mbah              #+#    #+#              #
-#    Updated: 2025/01/20 21:27:17 by mbah             ###   ########.fr        #
+#    Updated: 2025/01/22 17:14:33 by mbah             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LDFLAGS    = -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit -L./lib/
 HEADER     = $(INC)/get_next_line.h $(INC)/FdF.h $(INC)/FdF_utils.h
 SRC        = $(DIR)/app/utility/gnl/get_next_line_utils.c $(DIR)/app/utility/gnl/get_next_line.c $(DIR)/main.c \
 			 $(DIR)/app/utility/app.draw_line.c $(DIR)/app/utility/app.draw_pixel.c $(DIR)/app/utility/app.make_colors.c \
-			 $(DIR)/app/utility/map_parsing/app.init_point.c $(DIR)/app/utility/map_parsing/app.parse_map.c
+			 $(DIR)/app/utility/map/app.map.init_point.c $(DIR)/app/utility/map/app.map.parse_map.c 
 			  
 
 OBJS       = $(SRC:.c=.o)

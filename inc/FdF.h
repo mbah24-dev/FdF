@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:25:47 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/20 21:07:17 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/22 17:14:42 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,25 @@
 
 typedef enum e_flag
 {
-	OK = 0,
-	ERROR = 1
+	TRUE = 1,
+	FALSE = 0
 }	t_flag;
+
+typedef struct s_map
+{
+	char	**map_temp;
+	int		width;
+	int		height;
+	t_point	*map_coord;
+}			t_map;
 
 typedef struct s_fdf
 {
-	t_point	*map_points;
+	t_map	map;
 	t_data	image;
-	char	**map;
 	void	*mlx;
 	void	*mlx_win;
 	int		zoom;
-	size_t	map_height;
-	size_t	map_width;
 	int		shift_x;
 	int		shift_y;
 }	t_fdf;
@@ -63,10 +68,7 @@ size_t	ft_countword(const char *str, char sep);
 char	**get_the_map(char *path, char *argv_1);
 
 /*===========  (app.init_point.c functions) ==========*/
-int		get_z(char *z_and_color);
-int		get_color(char *z_and_color);
-t_point	create_point(int x, int y, char *z);
-t_point	*init_point(char **map, int w, int h);
 char	*ft_strcat(char *s1, char *s2);
+
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   app.parse_map.c                                    :+:      :+:    :+:   */
+/*   app.map.parse_map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:04:18 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/20 21:08:55 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/22 16:54:23 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**get_the_map(char *path, char *argv_1)
 	if (fd < 0 || ft_strncmp(argv_1, "", 2) == 0)
 	{
 		ft_putstr_fd("Error: fichier introuvable \n", 1);
-		(exit(ERROR));
+		(exit(FALSE));
 	}
 	while (get_next_line(fd) != (NULL))
 		i++;
@@ -87,9 +87,12 @@ char	***get_map_content(char **map, const char map_sep)
 	values = (char ***) malloc(sizeof(char **) * (map_height + 1));
 	if (!values)
 		return (NULL);
-	i = -1;
-	while (map[++i])
+	i = 0;
+	while (map[i])
+	{
 		values[i] = ft_split(map[i], map_sep);
-	values[i] = (NULL);
+		i++;
+	}
+	values[i] = NULL;
 	return (values);
 }

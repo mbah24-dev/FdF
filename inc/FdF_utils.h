@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:24:13 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/20 20:40:05 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/22 16:00:47 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct s_point
 {
 	int		x;
 	int		y;
-	char	*z_and_color;
+	int		z;
+	int		color;
 }		t_point;
 
 typedef struct s_bresenham
@@ -43,6 +44,7 @@ int		my_mlx_get_r(int trgb);
 int		my_mlx_get_g(int trgb);
 int		my_mlx_get_b(int trgb);
 int		my_mlx_add_shade(double distance, int color);
+void	remove_nl(char **str);
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	my_mlx_draw_square(t_data *img, t_point O, int size, int color);
 void	my_mlx_draw_circle(t_data *img, t_point centre, int r, int color);
