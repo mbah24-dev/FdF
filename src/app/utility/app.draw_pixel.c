@@ -6,11 +6,12 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:33:39 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/22 19:09:27 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 03:33:52 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF_utils.h"
+#include "FdF_key.h"
 
 void	remove_nl(char *str)
 {
@@ -34,6 +35,8 @@ void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
 	char	*dst;
 
+	x = x + DIMW_X / 2;
+	y = y + DIMW_Y / 2;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
 }

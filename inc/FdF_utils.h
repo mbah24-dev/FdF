@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:24:13 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 01:29:15 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 15:45:08 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_point
 {
 	int		x;
 	int		y;
-	int		z;
+	long	z;
 	int		color;
 	int		is_last;
 }		t_point;

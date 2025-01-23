@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:26:16 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 02:39:45 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 17:10:15 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	init_fdf(t_fdf *data, char **argv)
 			&data->image.endian);
 	data->map.map_temp = get_the_map(ft_strcat("./public/maps/",
 				argv[1]), argv[1]);
+	if (data->map.map_temp[0] == NULL)
+	{
+		ft_printf("Error: Invalid map (x)");
+		exit(FALSE);
+	}
 	data->map.width = get_map_width(data->map.map_temp);
 	data->map.height = get_map_height(data->map.map_temp);
 	data->map.map_coord = init_map_points(data->map);
@@ -47,15 +52,14 @@ void	init_fdf(t_fdf *data, char **argv)
 int	main(int argc, char **argv)
 {
 	t_fdf	data;
-	t_point	centre;
 
 	if (argc < 2)
 		return (1);
 	init_fdf(&data, argv);
-	centre = create_point(100, 100, "40,0xFFFFF", 0);
+	ft_printf("w: %i\n", data.map.width);
+	ft_printf("h: %i\n, ", data.map.height);
 	mlx_hook(data.mlx_win, 17, 0, close_window, &data);
 	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
-	my_mlx_draw_circle(&data.image, centre, centre.z, centre.color);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.image.img, 0, 0);
 	mlx_loop(data.mlx);
 	return (EXIT_SUCCESS);

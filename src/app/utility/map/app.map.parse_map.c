@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:04:18 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 01:43:14 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 17:01:49 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,18 @@ int	ft_countword(const char *str, char sep)
 
 int	get_map_width(char **map)
 {
-	return (ft_countword(map[0], ' '));
+	int	i;
+	int	width;
+
+	i = 1;
+	width = ft_countword(map[0], ' ');
+	while (map[i])
+	{
+		if (ft_countword(map[i], ' ') > width)
+			width = ft_countword(map[i], ' ');
+		i++;
+	}
+	return (width);
 }
 
 int	get_map_height(char **map)
@@ -75,4 +86,31 @@ int	get_map_height(char **map)
 	while (map[i])
 		i += 1;
 	return (i);
+}
+
+char	**mem_set_values(char **values, t_map map)
+{
+	char	**res;
+	int		i;
+	int		width;
+	char	**temp;
+
+	width = get_map_width(map.map_temp);
+	temp = values;
+	i = 0;
+	while (values[i])
+		i++;
+	if (i < width)
+	{
+		res = (char **) malloc(sizeof(char *) * (width + 1));
+		if (!res)
+			return (NULL);
+		i = -1;
+		while (values[++i])
+			res[i] = values[i];
+		while (i < width)
+			res[i++] = ft_strdup("2147483648");
+		return (res);
+	}
+	return (temp);
 }

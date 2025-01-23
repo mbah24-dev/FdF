@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:05:22 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 02:34:35 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 16:57:33 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,21 @@ char	*ft_strcat(char *s1, char *s2)
 t_point	create_point(int x, int y, char *z_color, int is_last)
 {
 	t_point	pt;
+	int		color;
+	char	**temp;
 
+	temp = ft_split(z_color, ',');
 	pt.x = x;
 	pt.y = y;
-	pt.z = ft_atoi(ft_split(z_color, ',')[0]);
-	pt.color = 0xFA00FF;
+	if (ft_strncmp(temp[0], "2147483648", ft_strlen("2147483648")) != 0)
+		pt.z = ft_atoi(temp[0]);
+	else
+		pt.z = 2147483648;
+	if (temp[1] != NULL)
+		color = convert_(temp[1]);
+	else
+		color = my_mlx_create_trgb(0, 255, 255, 255);
+	pt.color = color;
 	pt.is_last = is_last;
 	return (pt);
 }
@@ -83,6 +93,7 @@ t_point	*init_map_points(const t_map map)
 		temp = map.map_temp[idx[0]];
 		remove_nl(temp);
 		values = ft_split(temp, ' ');
+		values = mem_set_values(values, map);
 		idx[1] = 0;
 		while (values[idx[1]])
 		{

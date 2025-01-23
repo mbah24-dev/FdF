@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:18:02 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/22 15:50:43 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 17:04:22 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	draw_line_bresenham(t_data *img, t_point pt_src,
 	t_bresenham	vars;
 	int			e2;
 
+	if (pt_src.z == 2147483648 || pt_dst.z == 2147483648)
+		return ;
 	init_bresenham_vars(&vars, pt_src, pt_dst);
 	while (1)
 	{
