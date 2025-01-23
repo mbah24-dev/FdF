@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:25:47 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/22 17:14:42 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 02:26:12 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ void	draw_line_bresenham(t_data *img, t_point pt_src,
 
 /*===========  (app.parse_map.c functions) ==========*/
 char	***get_map_content(char **map, const char map_sep);
-size_t	get_map_height(char **map);
-size_t	get_map_width(char **map);
-size_t	ft_countword(const char *str, char sep);
+int		get_map_height(char **map);
+int		get_map_width(char **map);
+int		ft_countword(const char *str, char sep);
 char	**get_the_map(char *path, char *argv_1);
 
 /*===========  (app.init_point.c functions) ==========*/
 char	*ft_strcat(char *s1, char *s2);
-
+t_point	*init_map_points(const t_map map);
+int		get_nb_points(t_point *points);
+t_point	create_point(int x, int y, char *z_color, int is_last);
 
 #endif

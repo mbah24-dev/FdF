@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:04:18 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/22 16:54:23 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 01:43:14 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ char	**get_the_map(char *path, char *argv_1)
 	return (map);
 }
 
-size_t	ft_countword(const char *str, char sep)
+int	ft_countword(const char *str, char sep)
 {
-	size_t	count;
-	size_t	i;
+	int	count;
+	int	i;
 
 	count = 0;
 	i = 0;
@@ -62,37 +62,17 @@ size_t	ft_countword(const char *str, char sep)
 	return (count);
 }
 
-size_t	get_map_width(char **map)
+int	get_map_width(char **map)
 {
 	return (ft_countword(map[0], ' '));
 }
 
-size_t	get_map_height(char **map)
+int	get_map_height(char **map)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (map[i])
 		i += 1;
 	return (i);
-}
-
-char	***get_map_content(char **map, const char map_sep)
-{
-	char	***values;
-	size_t	map_height;
-	int		i;
-
-	map_height = get_map_height(map);
-	values = (char ***) malloc(sizeof(char **) * (map_height + 1));
-	if (!values)
-		return (NULL);
-	i = 0;
-	while (map[i])
-	{
-		values[i] = ft_split(map[i], map_sep);
-		i++;
-	}
-	values[i] = NULL;
-	return (values);
 }

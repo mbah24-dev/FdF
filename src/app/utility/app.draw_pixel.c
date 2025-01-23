@@ -6,28 +6,25 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:33:39 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/22 17:02:11 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/22 19:09:27 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF_utils.h"
 
-void	remove_nl(char **str)
+void	remove_nl(char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	if (!str)
 		return ;
 	while (str[i])
 	{
-		j = 0;
-		while (str[i][j])
+		if (str[i] == '\n')
 		{
-			if (str[i][j] == '\n')
-				str[i][j] = ' ';
-			j++;
+			str[i] = '\0';
+			break ;
 		}
 		i++;
 	}
