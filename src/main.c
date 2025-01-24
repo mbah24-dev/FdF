@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:26:16 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 17:10:15 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/24 23:34:26 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,22 @@ int	key_press(int keycode, t_fdf *fdf_data)
 {
 	if (keycode == KEY_ESC)
 		close_window(fdf_data);
+	ft_printf("%i\n", keycode);
+	update_zoom_factor(keycode, fdf_data);
+	do_translation(keycode, fdf_data);
+	renderer(fdf_data);
 	return (FALSE);
+}
+
+void	free_all(t_fdf fdf)
+{
+	int	i;
+
+	i = -1;
+	while (fdf.map.map_temp[++i])
+		free(fdf.map.map_temp[i]);
+	free(fdf.map.map_temp);
+	free(fdf.map.map_coord);
 }
 
 void	init_fdf(t_fdf *data, char **argv)
@@ -39,13 +54,13 @@ void	init_fdf(t_fdf *data, char **argv)
 	if (data->map.map_temp[0] == NULL)
 	{
 		ft_printf("Error: Invalid map (x)");
-		exit(FALSE);
+		exit(TRUE);
 	}
 	data->map.width = get_map_width(data->map.map_temp);
 	data->map.height = get_map_height(data->map.map_temp);
 	data->map.map_coord = init_map_points(data->map);
-	data->zoom = 25;
-	data->shift_x = DIMW_X / 2;
+	data->zoom = 20;
+	data->shift_x = 100;
 	data->shift_y = 50;
 }
 
@@ -57,10 +72,11 @@ int	main(int argc, char **argv)
 		return (1);
 	init_fdf(&data, argv);
 	ft_printf("w: %i\n", data.map.width);
-	ft_printf("h: %i\n, ", data.map.height);
+	ft_printf("h: %i\n", data.map.height);
+	renderer(&data);
 	mlx_hook(data.mlx_win, 17, 0, close_window, &data);
 	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
-	mlx_put_image_to_window(data.mlx, data.mlx_win, data.image.img, 0, 0);
 	mlx_loop(data.mlx);
+	free_all(data);
 	return (EXIT_SUCCESS);
 }

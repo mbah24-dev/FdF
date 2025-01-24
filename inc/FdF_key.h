@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:08:43 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 15:47:21 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 21:34:42 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define KEY_RIGHT      124  // Flèche Droite
 
 /* Zoom */
-# define KEY_ZOOM_IN    69   // '+' (Shift + '=' en AZERTY)
-# define KEY_ZOOM_OUT   78   // '-' (AZERTY)
+# define KEY_ZOOM_IN    44   // '+' (Shift + '=' en AZERTY)
+# define KEY_ZOOM_OUT   24   // '-' (AZERTY)
 
 /* Rotation */
 # define KEY_ROT_X_UP   13   // 'z' (AZERTY)
@@ -44,8 +44,8 @@
 /* Quitter */
 # define KEY_ESC        53   // 'Echap'
 
-# define DIMW_X			800
-# define DIMW_Y			700
+# define DIMW_X			1000
+# define DIMW_Y			800
 
 # define INT_MAX_VAL	2147483647
 

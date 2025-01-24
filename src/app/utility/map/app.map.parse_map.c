@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:04:18 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 17:01:49 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 19:14:36 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**get_the_map(char *path, char *argv_1)
 	if (fd < 0 || ft_strncmp(argv_1, "", 2) == 0)
 	{
 		ft_putstr_fd("Error: fichier introuvable \n", 1);
-		(exit(FALSE));
+		(exit(TRUE));
 	}
 	while (get_next_line(fd) != (NULL))
 		i++;
@@ -38,7 +38,7 @@ char	**get_the_map(char *path, char *argv_1)
 		if (map[i] == NULL)
 			break ;
 	}
-	return (map);
+	return (free(path), map);
 }
 
 int	ft_countword(const char *str, char sep)

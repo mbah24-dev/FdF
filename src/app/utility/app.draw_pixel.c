@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:33:39 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 03:33:52 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/23 18:34:18 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
 	char	*dst;
 
-	x = x + DIMW_X / 2;
-	y = y + DIMW_Y / 2;
+	if (x >= DIMW_X - 2 || y >= DIMW_Y - 2)
+		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
 }

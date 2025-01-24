@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:05:22 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 16:57:33 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/24 23:03:31 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_point	create_point(int x, int y, char *z_color, int is_last)
 	if (temp[1] != NULL)
 		color = convert_(temp[1]);
 	else
-		color = my_mlx_create_trgb(0, 255, 255, 255);
+		color = my_mlx_create_trgb(0, 230, 255, 51);
 	pt.color = color;
 	pt.is_last = is_last;
 	return (pt);
@@ -94,17 +94,17 @@ t_point	*init_map_points(const t_map map)
 		remove_nl(temp);
 		values = ft_split(temp, ' ');
 		values = mem_set_values(values, map);
-		idx[1] = 0;
-		while (values[idx[1]])
+		idx[1] = -1;
+		while (values[++idx[1]])
 		{
 			pts[idx[2]] = create_point(idx[1], idx[0], values[idx[1]], 0);
 			free(values[idx[1]]);
-			idx[1]++;
 			idx[2]++;
 		}
 		free(values);
+		free(temp);
 		idx[0]++;
 	}
 	pts[idx[2]] = create_point(-10, -10, "0,OxFFFFFF", 1);
-	return (pts);
+	return (free(idx), pts);
 }

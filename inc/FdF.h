@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:25:47 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 17:07:13 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/24 23:11:04 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,14 @@ t_point	create_point(int x, int y, char *z_color, int is_last);
 int		convert_(char *color);
 
 /*===========  (app.core.draw_map.c functions) ==========*/
-void	draw_map(t_map map);
+void	draw_map(t_fdf *fdf);
+void	zoom_map(t_fdf *fdf);
+void	do_isometric_view(t_fdf *fdf);
+void	do_shift(t_fdf *fdf);
+int		renderer(t_fdf *fdf);
 
+/*===========  (app.core.zoom_bonus.c functions) ==========*/
+void	update_zoom_factor(int keycode, t_fdf *fdf);
+void	clear_image(t_data *image);
+void	do_translation(int keycode, t_fdf *fdf);
 #endif
