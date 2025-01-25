@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:26:16 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/24 23:34:26 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/25 03:08:51 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_fdf(t_fdf *data, char **argv)
 	data->map.height = get_map_height(data->map.map_temp);
 	data->map.map_coord = init_map_points(data->map);
 	data->zoom = 20;
-	data->shift_x = 100;
+	data->shift_x = 0;
 	data->shift_y = 50;
 }
 
@@ -73,9 +73,11 @@ int	main(int argc, char **argv)
 	init_fdf(&data, argv);
 	ft_printf("w: %i\n", data.map.width);
 	ft_printf("h: %i\n", data.map.height);
-	renderer(&data);
 	mlx_hook(data.mlx_win, 17, 0, close_window, &data);
 	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
+	renderer(&data);
+	//mlx_put_image_to_window(data.mlx, data.mlx_win, data.image.img, 0, 0);
+	//mlx_loop_hook(data.mlx, renderer, &data);
 	mlx_loop(data.mlx);
 	free_all(data);
 	return (EXIT_SUCCESS);
