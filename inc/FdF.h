@@ -1,89 +1,146 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 15:25:47 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/25 03:08:58 by mbah             ###   ########.fr       */
+/*   Created: 2025/01/25 22:14:25 by mbah              #+#    #+#             */
+/*   Updated: 2025/01/27 19:40:27 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <mlx.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <math.h>
-# include "ft_printf.h"
-# include "libft.h"
-# include "FdF_utils.h"
+# include "mlx.h"
 # include "get_next_line.h"
-# include "FdF_key.h"
-# include <time.h>
+# include "libft.h"
+# include <stdio.h>
+# include <math.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <errno.h>
 
-typedef enum e_flag
+# define WIN_WIDTH  900
+# define WIN_HEIGHT 800
+
+/* definition des cles (keyboard) */
+
+# define ARROW_RIGHT		124
+# define ARROW_DOWN			125
+# define ARROW_LEFT			123
+# define ARROW_UP			126
+# define PLUS				44
+# define MINUS				24
+# define ENTER				36
+# define RESET_KEY			15 
+# define MOUSE_CLICK_RIGHT	2
+# define MOUSE_CLICK_MIDDLE	3
+# define MOUSE_CLICK_LEFT	1
+# define MOUSE_WHEEL_DOWN	5
+# define MOUSE_WHEEL_UP		4
+# define ESCAPE				53
+
+typedef struct s_point
 {
-	TRUE = 1,
-	FALSE = 0
-}	t_flag;
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+	int	reverse;
+}		t_point;
+
+typedef struct s_camera
+{
+	int		zoom;
+	double	x_alpha;
+	double	y_beta;
+	double	z_gama;
+	float	z_height;
+	int		iso;
+	int		x_offset;
+	int		y_offset;
+}			t_camera;
+
+typedef struct s_mouse
+{
+	int	x;
+	int	y;
+	int	previous_x;
+	int	previous_y;
+	int	button;
+}		t_mouse;
 
 typedef struct s_map
 {
-	char	**map_temp;
-	int		width;
-	int		height;
-	t_point	*map_coord;
-}			t_map;
+	int	height;
+	int	width;
+	int	z_max;
+	int	z_min;
+	int	***map_coord;
+}		t_map;
 
 typedef struct s_fdf
 {
-	t_map	map;
-	t_data	image;
-	void	*mlx;
-	void	*mlx_win;
-	int		zoom;
-	int		shift_x;
-	int		shift_y;
-}	t_fdf;
+	t_camera	*camera;
+	t_map		*map;
+	t_mouse		*mouse;
+	void		*mlx;
+	void		*mlx_win;
+	void		*img;
+	int			steep;
+	char		*data_addr;
+	int			bpp;
+	int			line_height;
+	int			endian;
+}				t_fdf;
 
-/*===========  (main.c functions) ==========*/
-int		close_win(t_fdf *fdf_data);
-int		key_press(int keycode, t_fdf *fdf_data);
-void	init_fdf(t_fdf *data, char **argv);
+/* fdf_utils functions */
 
-/*===========  (app.draw_line.c functions) ==========*/
-void	draw_line_bresenham(t_data *img, t_point pt_src,
-			t_point pt_dst, int color);
+void	ft_put_pixel(t_fdf	*fdf, int x, int y, int color);
+void	update_z_min_or_z_max(t_map *map, int nb);
+void	terminate(char *error_msg, int type);
+int		get_min_value(int first, int second);
+int		get_initial_color(t_map *map, int z_axis);
 
-/*===========  (app.map.parse_map.c functions) ==========*/
-char	**mem_set_values(char **values, t_map map);
-int		get_map_height(char **map);
-int		get_map_width(char **map);
-int		ft_countword(const char *str, char sep);
-char	**get_the_map(char *path, char *argv_1);
+/* app.projection.c functions*/
+t_point	project_point(t_fdf *fdf, int x, int y);
 
-/*===========  (app.map.init_point.c functions) ==========*/
-char	*ft_strcat(char *s1, char *s2);
-t_point	*init_map_points(const t_map map);
-int		get_nb_points(t_point *points);
-t_point	create_point(int x, int y, char *z_color, int is_last);
+/* app.parse_map.c functions */
+void	check_the_map(t_map *map, const char *path);
 
-/*===========  (app.convert_base.c functions) ==========*/
+/* app.mouse_event.c functions */
+int		mouse_down_action(int button, int x, int y, void *vars);
+int		mouse_up_action(int button, int x, int y, void *vars);
+int		mouse_move_action(int x, int y, void *vars);
+
+/* app.xiaolin_wu_line_utils.c functions */
+float	get_value_abs(float value);
+int		get_int_value(float value);
+float	get_float_value(float value);
+float	get_fraction_complement(float value);
+
+/* app.xiaolin_wu_line.c functions */
+void	draw_xiaolin_wu_line(t_point s, t_point e, t_fdf *fdf);
+
+/* app.keyboard_event.c functions */
+int		keyboard_press(int keycode, void *vars);
+
+/* app.draw_map_and_menu.c functions */
+void	draw_map(t_map *map, t_fdf *fdf);
+
+/* app.hooks_controls.c functions */
+int		close_win(void *vars);
+void	fdf_hooks_controls(t_fdf *fdf);
+double	reset_angles(double angle);
+
 int		convert_(char *color);
 
-/*===========  (app.core.draw_map.c functions) ==========*/
-void	draw_map(t_fdf *fdf);
-void	zoom_map(t_fdf *fdf);
-void	do_isometric_view(t_fdf *fdf);
-void	do_shift(t_fdf *fdf);
-int		renderer(t_fdf *fdf);
+/* app.make_color_utils.c functions  */
+int		get_r(int color);
+int		get_g(int color);
+int		get_b(int color);
+int		make_color(int r, int g, int b);
 
-/*===========  (app.core.zoom_bonus.c functions) ==========*/
-void	update_zoom_factor(int keycode, t_fdf *fdf);
-void	clear_image(t_data *image);
-void	do_translation(int keycode, t_fdf *fdf);
 #endif

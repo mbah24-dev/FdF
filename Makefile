@@ -5,46 +5,58 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/09 19:11:38 by mbah              #+#    #+#              #
-#    Updated: 2025/01/23 19:34:39 by mbah             ###   ########.fr        #
+#    Created: 2025/01/26 16:26:17 by mbah              #+#    #+#              #
+#    Updated: 2025/01/27 19:50:05 by mbah             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME      ?= fdf
 CC         = cc
 DIR        = src
-FT_PRINTF  = ./lib/ft_printf/libftprintf.a  # Path to the libftprintf.a
-LIBFT      = ./lib/ft_printf/libft/libft.a
 INC        = inc
+LIBFT	   = lib/libft/
+MLX        = minilibx/
+LIBFT_A    = $(addprefix $(LIBFT), libft.a)
+MLX_A      = $(addprefix $(MLX), libmlx.a)
 CFLAGS     = -Wall -Werror -Wextra -I $(INC)
-LDFLAGS    = -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit -L./lib/ft_printf -lftprintf -lm  # Added -lm for math library
-HEADER     = $(INC)/get_next_line.h $(INC)/FdF.h $(INC)/FdF_utils.h
-SRC        = $(DIR)/app/utility/gnl/get_next_line_utils.c $(DIR)/app/utility/gnl/get_next_line.c $(DIR)/main.c \
-			 $(DIR)/app/utility/app.draw_line.c $(DIR)/app/utility/app.draw_pixel.c $(DIR)/app/utility/app.make_colors.c \
-			 $(DIR)/app/utility/map/app.map.init_point.c $(DIR)/app/utility/map/app.map.parse_map.c \
-			 $(DIR)/app/utility/app.convert_base.c $(DIR)/app/core/app.core.draw_map.c $(DIR)/app/core/app.core.zoom_bonus.c
-			  
+HEADER     = $(INC)/libft.h $(INC)/get_next_line.h $(INC)/fdf.h 
+SRC        = $(DIR)/app/core/app.draw_map_and_menu.c $(DIR)/app/core/app.projection.c $(DIR)/app/core/app.xiaolin_wu_line_utils.c \
+			 $(DIR)/app/core/app.xiaolin_wu_line.c $(DIR)/app/core/app.hooks_controls.c $(DIR)/app/core/app.keyboard_event.c \
+			 $(DIR)/app/core/app.parse_map.c $(DIR)/app/core/app.mouse_event.c $(DIR)/app/utility/app.convert_base.c \
+			 $(DIR)/app/utility/app.fdf_utils.c $(DIR)/main.c $(DIR)/app/utility/app.color_utils.c \
+			 lib/get_next_line/get_next_line.c lib/get_next_line/get_next_line_utils.c
 
 OBJS       = $(SRC:.c=.o)
 
-$(NAME): $(OBJS) $(FT_PRINTF) $(LIBFT) # Depend on libftprintf.a
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+all: $(NAME)
 
-$(FT_PRINTF):  # Specify how to build libftprintf.a
-	@$(MAKE) -C ./lib/ft_printf
+
+$(NAME): $(OBJS) $(LIBFT_A) $(MLX_A)
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT) -lft -L$(MLX) -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
+	@echo "Linked into executable \033[0;32mfdf\033[0m."
+
+$(LIBFT_A):
+	@$(MAKE) -s -C $(LIBFT)
+	@echo "Compiled libft source"
+
+$(MLX_A):
+	@$(MAKE) -s -C $(MLX)
+	@echo "Compiled minilibx source."
+
+bonus: all
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-all: $(NAME)
-
+	
 clean:
-	$(MAKE) clean -C ./lib/ft_printf
 	rm -rf $(OBJS)
+	$(MAKE) clean -s -C $(LIBFT)
+	$(MAKE) clean -s -C $(MLX)
 
 fclean: clean
-	$(MAKE) fclean -C ./lib/ft_printf
 	rm -rf $(NAME)
+	$(MAKE) fclean -s -C $(LIBFT)
+	$(MAKE) clean -s -C $(MLX)
 
 re: fclean all
 

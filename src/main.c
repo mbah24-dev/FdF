@@ -5,80 +5,93 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 15:26:16 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/25 03:08:51 by mbah             ###   ########.fr       */
+/*   Created: 2025/01/26 15:32:38 by mbah              #+#    #+#             */
+/*   Updated: 2025/01/27 19:19:07 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FdF.h"
+#include "fdf.h"
 
-int	close_window(t_fdf *fdf_data)
+static t_fdf	*get_fdf(void)
 {
-	mlx_destroy_window(fdf_data->mlx, fdf_data->mlx_win);
-	exit(FALSE);
-	return (FALSE);
+	t_fdf	*fdf;
+	char	*proj_title;
+
+	proj_title = ft_strdup("mbah-42 FdF - Project");
+	fdf = (t_fdf *) malloc(sizeof(t_fdf));
+	if (!fdf)
+		terminate("MALLOC ERR: Memory allocation failed. ", 1);
+	fdf->mlx = mlx_init();
+	if (!fdf->mlx)
+		terminate("MLX ERR:  Error connecting to graphics server", 1);
+	fdf->mlx_win = mlx_new_window(fdf->mlx, WIN_WIDTH, WIN_HEIGHT, proj_title);
+	if (!fdf->mlx_win)
+		terminate("MLX ERR:  Error initializing window", 1);
+	free(proj_title);
+	fdf->img = mlx_new_image(fdf->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!fdf->img)
+		terminate("MLX ERR:  Error initializing image", 1);
+	fdf->data_addr = mlx_get_data_addr(fdf->img, &fdf->bpp, &fdf->line_height,
+			&fdf->endian);
+	fdf->map = NULL;
+	fdf->camera = NULL;
+	fdf->mouse = (t_mouse *) malloc(sizeof(t_mouse));
+	if (!fdf->mouse)
+		terminate("MOUSE ERR:  Error initializing mouse", 1);
+	return (fdf);
 }
 
-int	key_press(int keycode, t_fdf *fdf_data)
+static t_camera	*get_camera(t_fdf *fdf)
 {
-	if (keycode == KEY_ESC)
-		close_window(fdf_data);
-	ft_printf("%i\n", keycode);
-	update_zoom_factor(keycode, fdf_data);
-	do_translation(keycode, fdf_data);
-	renderer(fdf_data);
-	return (FALSE);
+	t_camera	*camera;
+	int			shift_w;
+	int			shift_h;
+
+	camera = (t_camera *)malloc(sizeof(t_camera));
+	if (!camera)
+		terminate("MALLOC ERR: Memory allocation failed.", 1);
+	shift_w = (WIN_WIDTH / fdf->map->width) / 2;
+	shift_h = (WIN_HEIGHT / fdf->map->height) / 2;
+	camera->zoom = get_min_value(shift_w, shift_h);
+	camera->x_alpha = -0.615472907;
+	camera->y_beta = -0.523599;
+	camera->z_gama = 0.615472907;
+	camera->z_height = 1;
+	camera->x_offset = 0;
+	camera->y_offset = 0;
+	camera->iso = 1;
+	return (camera);
 }
 
-void	free_all(t_fdf fdf)
+static t_map	*get_map(void)
 {
-	int	i;
+	t_map	*map;
 
-	i = -1;
-	while (fdf.map.map_temp[++i])
-		free(fdf.map.map_temp[i]);
-	free(fdf.map.map_temp);
-	free(fdf.map.map_coord);
-}
-
-void	init_fdf(t_fdf *data, char **argv)
-{
-	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, DIMW_X, DIMW_Y, "Fil De Fer");
-	data->image.img = mlx_new_image(data->mlx, DIMW_X, DIMW_Y);
-	data->image.addr = mlx_get_data_addr(data->image.img,
-			&data->image.bits_per_pixel, &data->image.line_length,
-			&data->image.endian);
-	data->map.map_temp = get_the_map(ft_strcat("./public/maps/",
-				argv[1]), argv[1]);
-	if (data->map.map_temp[0] == NULL)
-	{
-		ft_printf("Error: Invalid map (x)");
-		exit(TRUE);
-	}
-	data->map.width = get_map_width(data->map.map_temp);
-	data->map.height = get_map_height(data->map.map_temp);
-	data->map.map_coord = init_map_points(data->map);
-	data->zoom = 20;
-	data->shift_x = 0;
-	data->shift_y = 50;
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		terminate("MALLOC ERR: Memory allocation failed.", 1);
+	map->width = 0;
+	map->height = 0;
+	map->map_coord = NULL;
+	map->z_min = 0;
+	map->z_max = 0;
+	return (map);
 }
 
 int	main(int argc, char **argv)
 {
-	t_fdf	data;
+	t_fdf	*fdf;
 
-	if (argc < 2)
-		return (1);
-	init_fdf(&data, argv);
-	ft_printf("w: %i\n", data.map.width);
-	ft_printf("h: %i\n", data.map.height);
-	mlx_hook(data.mlx_win, 17, 0, close_window, &data);
-	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
-	renderer(&data);
-	//mlx_put_image_to_window(data.mlx, data.mlx_win, data.image.img, 0, 0);
-	//mlx_loop_hook(data.mlx, renderer, &data);
-	mlx_loop(data.mlx);
-	free_all(data);
-	return (EXIT_SUCCESS);
+	if (argc == 2)
+	{
+		fdf = get_fdf();
+		fdf->map = get_map();
+		check_the_map(fdf->map, argv[1]);
+		fdf->camera = get_camera(fdf);
+		fdf_hooks_controls(fdf);
+		draw_map(fdf->map, fdf);
+		mlx_loop(fdf->mlx);
+	}
+	else
+		terminate("USAGE ERR: Please use << ./fdf <file_path>.", 0);
 }

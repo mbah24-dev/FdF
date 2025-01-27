@@ -6,11 +6,11 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 02:42:47 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/23 03:18:29 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/26 16:35:39 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FdF.h"
+#include "fdf.h"
 
 static int	get_index(char *base, char value)
 {
