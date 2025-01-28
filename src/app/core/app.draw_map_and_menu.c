@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:34:04 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 17:36:03 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 17:42:47 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static void	draw_fdf_menu(t_fdf *fdf)
 		else
 			mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 80,
 				0x00FF00, "ENTER CLICK: Projection (Parrallel)");
-		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 90,
+		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 100,
 			0xFFFFF0, "R CLICK: Reset camera");
-		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 110,
+		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 120,
 			0xFFFFF0, "+/-: Elevation");
 	}
 }

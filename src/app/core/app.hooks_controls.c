@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 15:13:41 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 17:25:36 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 17:47:13 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,21 @@ int	close_win(void *vars)
 	exit(0);
 }
 
-void fdf_hooks_controls(t_fdf *fdf)
+void	fdf_hooks_controls(t_fdf *fdf)
 {
-	mlx_hook(fdf->mlx_win, EVENT_KEY_PRESS, MASK_KEY_PRESS, keyboard_press, fdf);
-	mlx_hook(fdf->mlx_win, EVENT_MOUSE_DOWN, MASK_BUTTON_PRESS, mouse_down_action, fdf);
+	mlx_hook(fdf->mlx_win, EVENT_KEY_PRESS,
+		MASK_KEY_PRESS, keyboard_press, fdf);
+	mlx_hook(fdf->mlx_win, EVENT_MOUSE_DOWN,
+		MASK_BUTTON_PRESS, mouse_down_action, fdf);
 	if (MACOS)
 	{
-		mlx_hook(fdf->mlx_win, EVENT_MOUSE_UP, MASK_BUTTON_RELEASE, mouse_up_action, fdf);
-		mlx_hook(fdf->mlx_win, EVENT_MOUSE_MOVE, MASK_POINTER_MOTION, mouse_move_action, fdf);
+		mlx_hook(fdf->mlx_win, EVENT_MOUSE_UP,
+			MASK_BUTTON_RELEASE, mouse_up_action, fdf);
+		mlx_hook(fdf->mlx_win, EVENT_MOUSE_MOVE,
+			MASK_POINTER_MOTION, mouse_move_action, fdf);
 	}
-	mlx_hook(fdf->mlx_win, EVENT_DESTROY, MASK_STRUCTURE_NOTIFY, close_win, fdf);
+	mlx_hook(fdf->mlx_win, EVENT_DESTROY,
+		MASK_STRUCTURE_NOTIFY, close_win, fdf);
 }
 
 double	reset_angles(double angle)
