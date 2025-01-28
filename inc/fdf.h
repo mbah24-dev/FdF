@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 22:14:25 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 16:23:33 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 16:48:38 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 # ifdef __APPLE__
 #  include "macos_keys.h"
+#  define MACOS			1
 # elif __linux__
 #  include "linux_keys.h"
+#  define MACOS			0
 # endif
 
 # include "mlx.h"

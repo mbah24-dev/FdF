@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 02:10:38 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/27 19:48:28 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 16:52:32 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@ int	mouse_down_action(int button, int x, int y, void *vars)
 	t_fdf	*fdf;
 
 	fdf = (t_fdf *) vars;
-	if (button == MOUSE_CLICK_RIGHT || button == MOUSE_CLICK_LEFT
-		|| button == MOUSE_CLICK_MIDDLE)
+	if (MACOS)
 	{
-		fdf->mouse->button = button;
-		fdf->mouse->previous_x = x;
-		fdf->mouse->previous_y = y;
+		if (button == MOUSE_CLICK_RIGHT || button == MOUSE_CLICK_LEFT
+				|| button == MOUSE_CLICK_MIDDLE)
+		{
+			fdf->mouse->button = button;
+			fdf->mouse->previous_x = x;
+			fdf->mouse->previous_y = y;
+		}
 	}
-	else if (button == MOUSE_WHEEL_DOWN || button == MOUSE_WHEEL_UP)
+	if (button == MOUSE_WHEEL_DOWN || button == MOUSE_WHEEL_UP)
 		zoom_action(button, fdf);
 	return (0);
 }

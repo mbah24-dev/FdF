@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 15:13:41 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 16:21:41 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 17:25:36 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@ void	rotate_action(int key, t_fdf *fdf)
 {
 	if (key == X_KEY)
 		fdf->camera->x_alpha += 0.05;
+	else if (key == A_KEY)
+		fdf->camera->x_alpha -= 0.05;
 	else if (key == Y_KEY)
 		fdf->camera->y_beta += 0.05;
+	else if (key == B_KEY)
+		fdf->camera->y_beta -= 0.05;
 	else if (key == Z_KEY)
 		fdf->camera->z_gama += 0.05;
+	else if (key == C_KEY)
+		fdf->camera->z_gama -= 0.05;
 	fdf->camera->x_alpha = reset_angles(fdf->camera->x_alpha);
 	fdf->camera->y_beta = reset_angles(fdf->camera->y_beta);
 	fdf->camera->z_gama = reset_angles(fdf->camera->z_gama);
@@ -56,8 +62,11 @@ void fdf_hooks_controls(t_fdf *fdf)
 {
 	mlx_hook(fdf->mlx_win, EVENT_KEY_PRESS, MASK_KEY_PRESS, keyboard_press, fdf);
 	mlx_hook(fdf->mlx_win, EVENT_MOUSE_DOWN, MASK_BUTTON_PRESS, mouse_down_action, fdf);
-	mlx_hook(fdf->mlx_win, EVENT_MOUSE_UP, MASK_BUTTON_RELEASE, mouse_up_action, fdf);
-	mlx_hook(fdf->mlx_win, EVENT_MOUSE_MOVE, MASK_POINTER_MOTION, mouse_move_action, fdf);
+	if (MACOS)
+	{
+		mlx_hook(fdf->mlx_win, EVENT_MOUSE_UP, MASK_BUTTON_RELEASE, mouse_up_action, fdf);
+		mlx_hook(fdf->mlx_win, EVENT_MOUSE_MOVE, MASK_POINTER_MOTION, mouse_move_action, fdf);
+	}
 	mlx_hook(fdf->mlx_win, EVENT_DESTROY, MASK_STRUCTURE_NOTIFY, close_win, fdf);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 22:58:03 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 16:25:34 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 17:26:53 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@
 # define EVENT_MOUSE_MOVE      6
 # define EVENT_DESTROY         17
 
-# define X_KEY					7
-# define Y_KEY					16
-# define Z_KEY					13
+# define A_KEY					0
+# define B_KEY					0
+# define C_KEY					0
+
+# define X_KEY					0
+# define Y_KEY					0
+# define Z_KEY					0
 
 # define MASK_KEY_PRESS        0
 # define MASK_KEY_RELEASE      0
