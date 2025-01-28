@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 23:01:04 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 16:24:11 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 16:31:18 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,5 @@
 # define MASK_BUTTON_RELEASE   (1L << 3)
 # define MASK_POINTER_MOTION   (1L << 6)
 # define MASK_STRUCTURE_NOTIFY (1L << 17)
-
-X : 53
-Y : 29
-Z : 52
 
 #endif
