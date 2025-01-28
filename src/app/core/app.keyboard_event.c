@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:54:03 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/27 19:46:29 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 16:26:45 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ int	keyboard_press(int keycode, void *vars)
 		reset_camera(fdf);
 	else if (keycode == ESCAPE)
 		close_win(fdf);
+	else if (keycode == X_KEY || keycode == Y_KEY
+			|| keycode == Z_KEY)
+		rotate_action(keycode, fdf);
 	draw_map(fdf->map, fdf);
 	return (0);
 }

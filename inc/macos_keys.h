@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 22:58:03 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 15:43:03 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 16:25:34 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 # define EVENT_MOUSE_UP        5
 # define EVENT_MOUSE_MOVE      6
 # define EVENT_DESTROY         17
+
+# define X_KEY					7
+# define Y_KEY					16
+# define Z_KEY					13
 
 # define MASK_KEY_PRESS        0
 # define MASK_KEY_RELEASE      0

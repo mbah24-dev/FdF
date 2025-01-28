@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 22:14:25 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 02:19:29 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 16:23:33 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	close_fd(int fd);
 int		close_win(void *vars);
 void	fdf_hooks_controls(t_fdf *fdf);
 double	reset_angles(double angle);
+void	rotate_action(int key, t_fdf *fdf);
 
 int		convert_(char *color);
 
