@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:34:04 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 17:20:40 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 17:36:03 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ static void	draw_fdf_menu(t_fdf *fdf)
 		draw_macos_fdf_menu(fdf);
 	else
 	{
-		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 0,
-			0xFFFFF0, "ARROW CLICK: Move the map x/y");
 		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 20,
-			0xFFFFF0, "(X, Y, Z) CLICK: Rotate x/y/z axis");
+			0xFFFFF0, "ARROW CLICK: Move the map x/y");
 		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 40,
+			0xFFFFF0, "(X, Y, Z) CLICK: Rotate x/y/z axis");
+		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 60,
 			0xFFFFF0, "(A, B, C) CLICK: Reverse rotate x/y/z axis");
 		if (fdf->camera->iso)
-			mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 60,
+			mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 80,
 				0x00FF00, "ENTER CLICK: Projection (Isometric)");
 		else
-			mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 60,
+			mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 80,
 				0x00FF00, "ENTER CLICK: Projection (Parrallel)");
-		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 80,
+		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 90,
 			0xFFFFF0, "R CLICK: Reset camera");
-		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 100,
+		mlx_string_put(fdf->mlx, fdf->mlx_win, WIN_WIDTH - 400, 110,
 			0xFFFFF0, "+/-: Elevation");
 	}
 }
