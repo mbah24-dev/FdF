@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 23:01:04 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 17:21:48 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 18:02:12 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@
 # define B_KEY					98
 # define C_KEY					99
 
-# define MASK_KEY_PRESS        (1L << 0)
-# define MASK_KEY_RELEASE      (1L << 1)
-# define MASK_BUTTON_PRESS     (1L << 2)
-# define MASK_BUTTON_RELEASE   (1L << 3)
-# define MASK_POINTER_MOTION   (1L << 6)
-# define MASK_STRUCTURE_NOTIFY (1L << 17)
+# define MASK_KEY_PRESS        0
+# define MASK_KEY_RELEASE      1
+# define MASK_BUTTON_PRESS     2
+# define MASK_BUTTON_RELEASE   3
+# define MASK_POINTER_MOTION   6
+# define MASK_STRUCTURE_NOTIFY 17
 
 #endif

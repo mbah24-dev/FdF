@@ -6,13 +6,13 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 00:38:26 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 01:40:08 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 19:42:02 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static	int	get_map_height(const char *path)
+static	int	get_map_height(t_fdf * fdf, const char *path)
 {
 	int		height;
 	int		fd;
@@ -20,7 +20,7 @@ static	int	get_map_height(const char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		terminate("OPEN ERR: File not found", 1);
+		terminate(fdf, "OPEN ERR: File not found", 1);
 	height = 0;
 	line = "";
 	while (1)
@@ -32,10 +32,10 @@ static	int	get_map_height(const char *path)
 		free(line);
 	}
 	free(line);
-	return (close_fd(fd), height);
+	return (close_fd(fdf, fd), height);
 }
 
-static int	get_map_width(const char *path)
+static int	get_map_width(t_fdf *fdf, const char *path)
 {
 	int		fd;
 	int		width;
@@ -44,11 +44,11 @@ static int	get_map_width(const char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		terminate("OPEN ERR: File not found", 1);
+		terminate(fdf, "OPEN ERR: File not found", 1);
 	width = 0;
 	line = get_next_line(fd);
 	if (!line || *line == '\0')
-		terminate("MAP ERR: The map format is invalid.", 1);
+		terminate(fdf, "MAP ERR: The map format is invalid.", 1);
 	i = -1;
 	while (line[++i])
 		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
@@ -61,10 +61,10 @@ static int	get_map_width(const char *path)
 			break ;
 		free(line);
 	}
-	return (close_fd(fd), width);
+	return (close_fd(fdf, fd), width);
 }
 
-static void	get_line_values(int **values, char *line, int width)
+static void	get_line_values(t_fdf *fdf, int **values, char *line, int width)
 {
 	int		i;
 	int		j;
@@ -76,7 +76,7 @@ static void	get_line_values(int **values, char *line, int width)
 	{
 		values[i] = malloc(sizeof(int) * 3);
 		if (!values[i])
-			terminate("MALLOC ERR: Memory allocation failed. ", 1);
+			terminate(fdf, "MALLOC ERR: Memory allocation failed. ", 1);
 		values[i][0] = ft_atoi(numbers[i]);
 		j = 0;
 		while (numbers[i][j] && numbers[i][j] != ',')
@@ -90,7 +90,7 @@ static void	get_line_values(int **values, char *line, int width)
 	free(numbers);
 }
 
-static void	get_min_max_z_values(t_map *map, char *line, int fd)
+static void	get_min_max_z_values(t_fdf *fdf, t_map *map, char *line, int fd)
 {
 	int	i;
 	int	j;
@@ -114,24 +114,24 @@ static void	get_min_max_z_values(t_map *map, char *line, int fd)
 		i++;
 	}
 	free(line);
-	close_fd(fd);
+	close_fd(fdf, fd);
 }
 
-void	check_the_map(t_map *map, const char *path)
+void	check_the_map(t_fdf *fdf, t_map *map, const char *path)
 {
 	int		i;
 	char	*line;
 	int		fd;
 
-	map->width = get_map_width(path);
-	map->height = get_map_height(path);
+	map->width = get_map_width(fdf, path);
+	map->height = get_map_height(fdf, path);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		terminate("OPEN ERR: File not found", 1);
+		terminate(fdf, "OPEN ERR: File not found", 1);
 	i = -1;
 	map->map_coord = (int ***) malloc(sizeof(int **) * map->height);
 	if (!map->map_coord)
-		terminate("MALLOC ERR: Memory allocation failed. ", 1);
+		terminate(fdf, "MALLOC ERR: Memory allocation failed. ", 1);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -139,9 +139,9 @@ void	check_the_map(t_map *map, const char *path)
 			break ;
 		map->map_coord[++i] = malloc(sizeof(int *) * map->width);
 		if (!map->map_coord[i])
-			terminate("MALLOC ERR: Memory allocation failed. ", 1);
-		get_line_values(map->map_coord[i], line, map->width);
+			terminate(fdf, "MALLOC ERR: Memory allocation failed. ", 1);
+		get_line_values(fdf, map->map_coord[i], line, map->width);
 		free(line);
 	}
-	get_min_max_z_values(map, line, fd);
+	get_min_max_z_values(fdf, map, line, fd);
 }

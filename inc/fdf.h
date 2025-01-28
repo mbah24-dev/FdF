@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 22:14:25 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 16:48:38 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 19:40:40 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_fdf
 
 void	ft_put_pixel(t_fdf	*fdf, int x, int y, int color);
 void	update_z_min_or_z_max(t_map *map, int nb);
-void	terminate(char *error_msg, int type);
+void	terminate(t_fdf *fdf, char *error_msg, int type);
 int		get_min_value(int first, int second);
 int		get_initial_color(t_map *map, int z_axis);
 
@@ -101,7 +101,7 @@ int		get_initial_color(t_map *map, int z_axis);
 t_point	project_point(t_fdf *fdf, int x, int y);
 
 /* app.parse_map.c functions */
-void	check_the_map(t_map *map, const char *path);
+void	check_the_map(t_fdf *fdf, t_map *map, const char *path);
 
 /* app.mouse_event.c functions */
 int		mouse_down_action(int button, int x, int y, void *vars);
@@ -122,13 +122,14 @@ int		keyboard_press(int keycode, void *vars);
 
 /* app.draw_map_and_menu.c functions */
 void	draw_map(t_map *map, t_fdf *fdf);
-void	close_fd(int fd);
+void	close_fd(t_fdf *fdf, int fd);
 
 /* app.hooks_controls.c functions */
 int		close_win(void *vars);
 void	fdf_hooks_controls(t_fdf *fdf);
 double	reset_angles(double angle);
 void	rotate_action(int key, t_fdf *fdf);
+void	free_all(t_fdf *fdf);
 
 int		convert_(char *color);
 

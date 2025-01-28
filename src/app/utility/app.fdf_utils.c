@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 23:26:04 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/27 19:49:10 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 19:30:53 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	get_initial_color(t_map *map, int z_axis)
 		return (0xFFA500);
 }
 
-void	terminate(char *error_msg, int type)
+void	terminate(t_fdf *fdf, char *error_msg, int type)
 {
 	if (!type)
 		ft_putendl_fd(error_msg, STDERR_FILENO);
 	else
 		perror(error_msg);
+	free_all(fdf);
 	exit(-1);
 }
