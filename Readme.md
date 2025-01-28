@@ -39,17 +39,63 @@ Bienvenue dans le projet **FdF** (Fil de Fer). Ce projet consiste à créer un p
 4. Exécutez le programme :
    ```bash
    ./fdf [chemin_du_fichier]
+   
+   	exemple: ./fdf public/maps/pyra.fdf
    ```
 
-## 🛠️ Utilisation
+# 🚀 Contrôles du jeu
 
-- Utilisez les touches fléchées pour déplacer la carte.
-- Utilisez les touches `+` et `-` pour zoomer et dézoomer.
-- Appuyez sur la touche `ESC` pour quitter le programme.
+Prêt à explorer ton monde en 3D ? Voici comment prendre le contrôle avec des touches et des mouvements stylés ! 😎
 
-## 🎨 Captures d'écran
+### 🧭 **Déplacements** (Flèches)
+- **Flèche droite →** : Déplace la carte vers la droite. 🏃‍♂️
+- **Flèche gauche ←** : Déplace la carte vers la gauche. 🏃‍♀️
+- **Flèche haut ↑** : Déplace la carte vers le haut. ⬆️
+- **Flèche bas ↓** : Déplace la carte vers le bas. ⬇️
 
-Ajout de quelques captures d'écran de mon programme en action.
+### 🏞️ **Contrôles d'élévation (Agrandir l'axe Z)**
+- **`+`** : Augmente l'élévation de la carte (agrandit l'axe Z). ⛰️🔝
+- **`-`** : Réduit l'élévation de la carte (réduit l'axe Z). 🌄🔽
+
+### 🌐 **Vues**
+- **`Enter`** : Change entre la vue **iso** 🌍 et la vue **parallèle** 🗺️. (Toggle bouton 🔄)
+
+### 🖱️ **Souris**
+- **Clic gauche 🖱️ (maintenir)** : Déplace la carte sur l'axe XY. ✨
+- **Clic droit 🖱️ (maintenir)** : Rotation de la carte autour de l'axe X et Y. 🔄🌀
+- **Clic du milieu 🖱️** : Rotation de la carte autour de l'axe Z. 🔁
+
+### 🚪 **Quitter le programme**
+- **`ESC`** : Quitte le programme (si tu veux prendre une pause ou partir à l'aventure ailleurs 🚶‍♂️💨).
+
+### 🎉 **Amuse-toi !**
+Maintenant que tu connais toutes les commandes, il ne te reste plus qu'à explorer et t'amuser à fond ! 🎮🎉
+
+
+## 🎨 **Captures d'écran** 📸✨
+
+Voici quelques **captures d'écran** pour vous donner un aperçu de mon programme en action. Regardez comment il brille! 🌟
+
+🎉 **Regardez ici** pour un **beau rendu** :
+
+![Capture d'écran 1](./public/screenshots/42.JPG)  
+*Quand la magie opère ! ✨*
+
+Et maintenant, une **vue spectaculaire** ! 🌋🔥
+
+![Capture d'écran 2](./public/screenshots/pyra.JPG)  
+*Un peu de pyra pour votre journée ! 😎*
+
+**Note**: Ces images sont en plein **action**, soyez prêts à être éblouis ! 💥✨
+## 🚫 **Tricherie? Pas ici!** 🚫
+
+L'intégrité est essentielle. Ce projet a été réalisé avec **passion**, **persévérance**, et **sueur** 😅. Je tiens à souligner que toute forme de triche ou de copier-coller sera **fermement désapprouvée**. Non seulement cela nuit à votre apprentissage, mais c'est aussi un coup de pied à l'esprit de la communauté 42! 💪
+
+Alors, faites-le à **votre façon**, apprenez et brillez comme vous le méritez! ✨
+
+> "Le succès vient de l'effort honnête, pas de raccourcis!" 💡
+
+
 
 ## 📝 Licence
 
