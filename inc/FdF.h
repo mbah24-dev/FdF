@@ -6,14 +6,15 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 22:14:25 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 01:38:55 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 02:19:29 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-/* inclusions du header des touches en fonction du OS  */
+/* Include header for key mappings depending on the OS */
+
 # ifdef __APPLE__
 #  include "macos_keys.h"
 # elif __linux__
