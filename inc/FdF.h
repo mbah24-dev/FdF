@@ -6,12 +6,19 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 22:14:25 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/27 19:40:27 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 01:38:55 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
+/* inclusions du header des touches en fonction du OS  */
+# ifdef __APPLE__
+#  include "macos_keys.h"
+# elif __linux__
+#  include "linux_keys.h"
+# endif
 
 # include "mlx.h"
 # include "get_next_line.h"
@@ -24,23 +31,6 @@
 
 # define WIN_WIDTH  900
 # define WIN_HEIGHT 800
-
-/* definition des cles (keyboard) */
-
-# define ARROW_RIGHT		124
-# define ARROW_DOWN			125
-# define ARROW_LEFT			123
-# define ARROW_UP			126
-# define PLUS				44
-# define MINUS				24
-# define ENTER				36
-# define RESET_KEY			15 
-# define MOUSE_CLICK_RIGHT	2
-# define MOUSE_CLICK_MIDDLE	3
-# define MOUSE_CLICK_LEFT	1
-# define MOUSE_WHEEL_DOWN	5
-# define MOUSE_WHEEL_UP		4
-# define ESCAPE				53
 
 typedef struct s_point
 {
@@ -129,6 +119,7 @@ int		keyboard_press(int keycode, void *vars);
 
 /* app.draw_map_and_menu.c functions */
 void	draw_map(t_map *map, t_fdf *fdf);
+void	close_fd(int fd);
 
 /* app.hooks_controls.c functions */
 int		close_win(void *vars);
