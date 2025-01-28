@@ -6,11 +6,17 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:34:04 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/27 19:30:44 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 01:38:24 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	close_fd(int fd)
+{
+	if (close(fd) == -1)
+		terminate("CLOSE ERR: Bad file descriptor", 1);
+}
 
 static void	draw_fdf_menu(t_fdf *fdf)
 {

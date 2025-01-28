@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 15:13:41 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/27 19:01:11 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/28 00:41:55 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	close_win(void *vars)
 	int		j;
 
 	fdf = (t_fdf *)vars;
-	mlx_destroy_image(fdf->mlx, fdf->mlx_win);
+	mlx_destroy_image(fdf->mlx, fdf->img);
 	mlx_destroy_window(fdf->mlx, fdf->mlx_win);
 	free(fdf->camera);
 	free(fdf->mouse);
