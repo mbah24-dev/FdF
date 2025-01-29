@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   app.hooks_controls.c                               :+:      :+:    :+:   */
+/*   app.hooks_controls_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 15:13:41 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/29 15:55:36 by mbah             ###   ########.fr       */
+/*   Created: 2025/01/29 15:23:07 by mbah              #+#    #+#             */
+/*   Updated: 2025/01/29 16:05:26 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	rotate_action(int key, t_fdf *fdf)
+{
+	if (key == X_KEY)
+		fdf->camera->x_alpha += 0.05;
+	else if (key == A_KEY)
+		fdf->camera->x_alpha -= 0.05;
+	else if (key == Y_KEY)
+		fdf->camera->y_beta += 0.05;
+	else if (key == B_KEY)
+		fdf->camera->y_beta -= 0.05;
+	else if (key == Z_KEY)
+		fdf->camera->z_gama += 0.05;
+	else if (key == C_KEY)
+		fdf->camera->z_gama -= 0.05;
+	fdf->camera->x_alpha = reset_angles(fdf->camera->x_alpha);
+	fdf->camera->y_beta = reset_angles(fdf->camera->y_beta);
+	fdf->camera->z_gama = reset_angles(fdf->camera->z_gama);
+	draw_map(fdf->map, fdf);
+}
 
 int	close_win(void *vars)
 {
@@ -42,6 +62,24 @@ void	fdf_hooks_controls(t_fdf *fdf)
 {
 	mlx_hook(fdf->mlx_win, EVENT_KEY_PRESS,
 		1L << MASK_KEY_PRESS, keyboard_press, fdf);
+	mlx_hook(fdf->mlx_win, EVENT_MOUSE_DOWN,
+		1L << MASK_BUTTON_PRESS, mouse_down_action, fdf);
+	if (MACOS)
+	{
+		mlx_hook(fdf->mlx_win, EVENT_MOUSE_UP,
+			1L << MASK_BUTTON_RELEASE, mouse_up_action, fdf);
+		mlx_hook(fdf->mlx_win, EVENT_MOUSE_MOVE,
+			1L << MASK_POINTER_MOTION, mouse_move_action, fdf);
+	}
 	mlx_hook(fdf->mlx_win, EVENT_DESTROY,
 		1L << MASK_STRUCTURE_NOTIFY, close_win, fdf);
+}
+
+double	reset_angles(double angle)
+{
+	if (angle >= M_PI)
+		return (-2 * M_PI - angle);
+	else if (angle <= -M_PI)
+		return (2 * M_PI + angle);
+	return (angle);
 }

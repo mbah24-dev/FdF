@@ -1,47 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   app.hooks_controls.c                               :+:      :+:    :+:   */
+/*   app.free_project.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 15:13:41 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/29 15:55:36 by mbah             ###   ########.fr       */
+/*   Created: 2025/01/29 15:04:15 by mbah              #+#    #+#             */
+/*   Updated: 2025/01/29 16:04:56 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	close_win(void *vars)
+static void	free_map_coord(t_fdf *fdf)
 {
-	t_fdf	*fdf;
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
-	fdf = (t_fdf *)vars;
-	mlx_destroy_image(fdf->mlx, fdf->img);
-	mlx_destroy_window(fdf->mlx, fdf->mlx_win);
-	free(fdf->camera);
-	free(fdf->mouse);
 	j = -1;
 	while (++j < fdf->map->height)
 	{
 		i = -1;
 		while (++i < fdf->map->width)
+		{
 			free(fdf->map->map_coord[j][i]);
+			fdf->map->map_coord[j][i] = NULL;
+		}
 		free(fdf->map->map_coord[j]);
+		fdf->map->map_coord[j] = NULL;
 	}
 	free(fdf->map->map_coord);
-	free(fdf->map);
-	free(fdf->mlx);
-	free(fdf);
-	exit(0);
+	fdf->map->map_coord = NULL;
 }
 
-void	fdf_hooks_controls(t_fdf *fdf)
+void	free_all(t_fdf *fdf)
 {
-	mlx_hook(fdf->mlx_win, EVENT_KEY_PRESS,
-		1L << MASK_KEY_PRESS, keyboard_press, fdf);
-	mlx_hook(fdf->mlx_win, EVENT_DESTROY,
-		1L << MASK_STRUCTURE_NOTIFY, close_win, fdf);
+	if (fdf)
+	{
+		if (fdf->img)
+			mlx_destroy_image(fdf->mlx, fdf->img);
+		if (fdf->mlx_win)
+			mlx_destroy_window(fdf->mlx, fdf->mlx_win);
+		if (fdf->camera)
+			free(fdf->camera);
+		if (fdf->mouse)
+			free(fdf->mouse);
+		if (fdf->map->map_coord)
+			free_map_coord(fdf);
+		if (fdf->map)
+			free(fdf->map);
+		if (fdf->mlx)
+		{
+			free(fdf->mlx);
+		}
+		free(fdf);
+	}
 }

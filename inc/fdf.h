@@ -6,7 +6,7 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 22:14:25 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 19:40:40 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/29 16:03:16 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ int		close_win(void *vars);
 void	fdf_hooks_controls(t_fdf *fdf);
 double	reset_angles(double angle);
 void	rotate_action(int key, t_fdf *fdf);
-void	free_all(t_fdf *fdf);
 
 int		convert_(char *color);
 
@@ -139,4 +138,6 @@ int		get_g(int color);
 int		get_b(int color);
 int		make_color(int r, int g, int b);
 
+/* app.free_project.c functions */
+void	free_all(t_fdf *fdf);
 #endif

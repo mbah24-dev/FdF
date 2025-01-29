@@ -6,13 +6,13 @@
 /*   By: mbah <mbah@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 00:38:26 by mbah              #+#    #+#             */
-/*   Updated: 2025/01/28 19:42:02 by mbah             ###   ########.fr       */
+/*   Updated: 2025/01/29 16:05:48 by mbah             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static	int	get_map_height(t_fdf * fdf, const char *path)
+static int	get_map_height(t_fdf *fdf, const char *path)
 {
 	int		height;
 	int		fd;
@@ -71,6 +71,8 @@ static void	get_line_values(t_fdf *fdf, int **values, char *line, int width)
 	char	**numbers;
 
 	numbers = ft_split(line, ' ');
+	if (!numbers || !values || !fdf)
+		terminate(fdf, "SEGFAULT ERR: ", 1);
 	i = -1;
 	while (numbers[++i] && i < width)
 	{
@@ -126,7 +128,7 @@ void	check_the_map(t_fdf *fdf, t_map *map, const char *path)
 	map->width = get_map_width(fdf, path);
 	map->height = get_map_height(fdf, path);
 	fd = open(path, O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || !map->width || !map->height)
 		terminate(fdf, "OPEN ERR: File not found", 1);
 	i = -1;
 	map->map_coord = (int ***) malloc(sizeof(int **) * map->height);
