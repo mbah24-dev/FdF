@@ -9,15 +9,16 @@
 #    Updated: 2025/01/29 16:08:43 by mbah             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
+# fsanitize=address
 NAME       = fdf
 BONUS_NAME = fdf_bonus
 CC         = cc
 DIR        = src
 INC        = inc
+MLX       ?= minilibx/
 LIBFT	   = lib/libft/
 LIBFT_A    = $(addprefix $(LIBFT), libft.a)
-CFLAGS     = -Wall -Werror -Wextra -I $(INC)
+CFLAGS     = -Wall -Werror -Wextra -I $(INC) -I $(MLX)
 HEADER     = $(INC)/libft.h $(INC)/get_next_line.h $(INC)/fdf.h $(INC)/macos_keys.h $(INC)/linux_keys.h $(INC)/mlx.h
 SRC        = $(DIR)/app/core/app.draw_map_and_menu.c $(DIR)/app/core/app.projection.c $(DIR)/app/core/app.xiaolin_wu_line_utils.c \
 			 $(DIR)/app/core/app.xiaolin_wu_line.c $(DIR)/app/core/app.hooks_controls.c $(DIR)/app/core/app.keyboard_event.c \
@@ -43,7 +44,7 @@ ifeq ($(UNAME), Darwin) # macOS
     MLX_A      = $(addprefix $(MLX), libmlx.a)
     MLX_FLAGS  = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
 else ifeq ($(UNAME), Linux) # Linux
-    MLX       ?= minilibx_linux/ # Dossier MinilibX pour Linux
+    MLX       ?= minilibx/ # Dossier MinilibX pour Linux
     MLX_A      = $(addprefix $(MLX), libmlx_Linux.a)
     MLX_FLAGS  = -L$(MLX) -lmlx -lXext -lX11 -lm
 else

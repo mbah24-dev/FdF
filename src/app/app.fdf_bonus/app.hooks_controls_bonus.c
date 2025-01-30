@@ -53,6 +53,8 @@ int	close_win(void *vars)
 	}
 	free(fdf->map->map_coord);
 	free(fdf->map);
+	if (!MACOS)
+		mlx_destroy_display(fdf->mlx);
 	free(fdf->mlx);
 	free(fdf);
 	exit(0);

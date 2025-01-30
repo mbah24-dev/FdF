@@ -18,8 +18,11 @@ void	ft_put_pixel(t_fdf	*fdf, int x, int y, int color)
 
 	if ((x >= 0 && y >= 0) && (x < WIN_WIDTH && y < WIN_HEIGHT))
 	{
-		dst = fdf->data_addr + (y * fdf->line_height + x * (fdf->bpp / 8));
-		*(unsigned int *) dst = color;
+		if (fdf->data_addr)
+		{
+			dst = fdf->data_addr + (y * fdf->line_height + x * (fdf->bpp / 8));
+			*(unsigned int *) dst = color;
+		}
 	}
 }
 

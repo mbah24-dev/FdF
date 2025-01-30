@@ -15,29 +15,26 @@
 static t_fdf	*get_fdf(void)
 {
 	t_fdf	*fdf;
-	char	*proj_title;
 
-	proj_title = ft_strdup("mbah-42 FdF - Project");
 	fdf = (t_fdf *) malloc(sizeof(t_fdf));
 	if (!fdf)
 		terminate(fdf, "MALLOC ERR: Memory allocation failed. ", 1);
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
-		terminate(fdf, "MLX ERR:  Error connecting to graphics server", 1);
-	fdf->mlx_win = mlx_new_window(fdf->mlx, WIN_WIDTH, WIN_HEIGHT, proj_title);
+		free_only_fdf_exit(fdf, 0);
+	fdf->mlx_win = mlx_new_window(fdf->mlx, WIN_WIDTH, WIN_HEIGHT, "FdF-mbah");
 	if (!fdf->mlx_win)
-		terminate(fdf, "MLX ERR:  Error initializing window", 1);
-	free(proj_title);
+		free_only_fdf_exit(fdf, 1);
 	fdf->img = mlx_new_image(fdf->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!fdf->img)
-		terminate(fdf, "MLX ERR:  Error initializing image", 1);
+		free_only_fdf_exit(fdf, 2);
 	fdf->data_addr = mlx_get_data_addr(fdf->img, &fdf->bpp, &fdf->line_height,
 			&fdf->endian);
 	fdf->map = NULL;
 	fdf->camera = NULL;
 	fdf->mouse = (t_mouse *) malloc(sizeof(t_mouse));
 	if (!fdf->mouse)
-		terminate(fdf, "MOUSE ERR:  Error initializing mouse", 1);
+		free_only_fdf_exit(fdf, 3);
 	return (fdf);
 }
 
@@ -69,7 +66,7 @@ static t_map	*get_map(t_fdf *fdf)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		terminate(fdf, "MALLOC ERR: Memory allocation failed.", 1);
+		free_only_fdf_exit(fdf, 4);
 	map->width = 0;
 	map->height = 0;
 	map->map_coord = NULL;

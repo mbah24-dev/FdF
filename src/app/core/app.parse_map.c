@@ -51,7 +51,7 @@ static int	get_map_width(t_fdf *fdf, const char *path)
 		terminate(fdf, "MAP ERR: The map format is invalid.", 1);
 	i = -1;
 	while (line[++i])
-		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
+		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\n'))
 			width++;
 	free(line);
 	while (1)
@@ -72,13 +72,13 @@ static void	get_line_values(t_fdf *fdf, int **values, char *line, int width)
 
 	numbers = ft_split(line, ' ');
 	if (!numbers || !values || !fdf)
-		terminate(fdf, "SEGFAULT ERR: ", 1);
+		free_split(fdf, numbers, fdf->fd, line);
 	i = -1;
 	while (numbers[++i] && i < width)
 	{
-		values[i] = malloc(sizeof(int) * 3);
+		values[i] = ft_calloc(sizeof(int), 2);
 		if (!values[i])
-			terminate(fdf, "MALLOC ERR: Memory allocation failed. ", 1);
+			free_split(fdf, numbers, fdf->fd, line);
 		values[i][0] = ft_atoi(numbers[i]);
 		j = 0;
 		while (numbers[i][j] && numbers[i][j] != ',')
@@ -92,30 +92,27 @@ static void	get_line_values(t_fdf *fdf, int **values, char *line, int width)
 	free(numbers);
 }
 
-static void	get_min_max_z_values(t_fdf *fdf, t_map *map, char *line, int fd)
+static void	get_min_max_z_values(t_fdf *fdf, t_map *map, int nb_line, int fd)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	if (!map->map_coord)
-		return ;
+	i = -1;
+	if (!map->map_coord || nb_line != map->height - 1)
+		terminate(fdf, "SEGFAULT ERR: ", 1);
 	map->z_min = map->map_coord[0][0][0];
 	map->z_max = map->map_coord[0][0][0];
-	while (i < map->height)
+	while (++i < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		j = -1;
+		while (++j < map->width)
 		{
 			if (map->map_coord[i][j][0] < map->z_min)
 				map->z_min = map->map_coord[i][j][0];
 			if (map->map_coord[i][j][0] > map->z_max)
 				map->z_max = map->map_coord[i][j][0];
-			j++;
 		}
-		i++;
 	}
-	free(line);
 	close_fd(fdf, fd);
 }
 
@@ -123,27 +120,26 @@ void	check_the_map(t_fdf *fdf, t_map *map, const char *path)
 {
 	int		i;
 	char	*line;
-	int		fd;
 
 	map->width = get_map_width(fdf, path);
 	map->height = get_map_height(fdf, path);
-	fd = open(path, O_RDONLY);
-	if (fd == -1 || !map->width || !map->height)
-		terminate(fdf, "OPEN ERR: File not found", 1);
+	fdf->fd = open(path, O_RDONLY);
+	if (fdf->fd == -1 || !map->width || !map->height)
+		terminate(fdf, "OPEN ERR:", 1);
 	i = -1;
-	map->map_coord = (int ***) malloc(sizeof(int **) * map->height);
+	map->map_coord = (int ***) ft_calloc(sizeof(int **), map->height);
 	if (!map->map_coord)
 		terminate(fdf, "MALLOC ERR: Memory allocation failed. ", 1);
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fdf->fd);
 		if (!line || *line == '\0')
 			break ;
-		map->map_coord[++i] = malloc(sizeof(int *) * map->width);
+		map->map_coord[++i] = ft_calloc(sizeof(int *), map->width);
 		if (!map->map_coord[i])
-			terminate(fdf, "MALLOC ERR: Memory allocation failed. ", 1);
+			free_split(fdf, 0, fdf->fd, line);
 		get_line_values(fdf, map->map_coord[i], line, map->width);
 		free(line);
 	}
-	get_min_max_z_values(fdf, map, line, fd);
+	get_min_max_z_values(fdf, map, i, fdf->fd);
 }

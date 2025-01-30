@@ -87,6 +87,7 @@ typedef struct s_fdf
 	int			bpp;
 	int			line_height;
 	int			endian;
+	int			fd;
 }				t_fdf;
 
 /* fdf_utils functions */
@@ -140,4 +141,7 @@ int		make_color(int r, int g, int b);
 
 /* app.free_project.c functions */
 void	free_all(t_fdf *fdf);
+void	free_split(t_fdf *fdf, char **str,
+			int fd, char *line);
+void	free_only_fdf_exit(t_fdf *fdf, int indx);
 #endif

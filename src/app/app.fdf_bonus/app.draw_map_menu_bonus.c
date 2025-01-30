@@ -87,7 +87,8 @@ void	draw_map(t_map *map, t_fdf *fdf)
 {
 	int	y;
 
-	ft_bzero(fdf->data_addr, WIN_WIDTH * WIN_HEIGHT * (fdf->bpp / 8));
+	if (fdf->data_addr)
+		ft_bzero(fdf->data_addr, WIN_WIDTH * WIN_HEIGHT * (fdf->bpp / 8));
 	y = 0;
 	if (fdf->camera->x_alpha > 0)
 		y = map->height - 1;
